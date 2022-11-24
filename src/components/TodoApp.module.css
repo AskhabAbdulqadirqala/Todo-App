@@ -1,0 +1,38 @@
+.todoApp {
+ max-width: 600px;
+ text-align: center;
+ margin: 0 auto;
+}
+
+.noAuthLabel{
+  background-color: darkslategrey;
+  font-size: 14px;
+}
+
+.langButtons {
+  margin-left: 394px;
+  border: 10px;
+  border-radius: 3px;
+  border: 1px solid #555;
+  background-color: #112d49;
+  color: cyan;
+}
+.langButton1 {
+  border-right: 2px solid #555;
+}
+
+.langButton1:hover, .langButton2:hover {
+  background-color: white;
+  color: #112d49;
+  cursor: pointer;
+}
+.auth{
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 3px;
+  color: cyan;
+  cursor: pointer;
+}
+.title {
+  margin-top: 0px;
+}

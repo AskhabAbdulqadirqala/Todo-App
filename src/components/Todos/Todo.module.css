@@ -1,0 +1,158 @@
+.todoActive {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 15px 0;
+  min-height: 40px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  border: 2px solid #555;
+  color: #112d49;
+  background-color: #fbfef9;
+  flex-wrap: wrap;
+  transition: transform 0.5s;
+}
+
+.todoNotActive {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 15px 0;
+  font-size: 1.5rem;
+  min-height: 40px;
+  border-radius: 5px;
+  border: 2px solid #555;
+  color: lightgrey;
+  background-color: darkgray;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transition: transform 0.5s;
+}
+.todoActive:hover, .todoNotActive:hover {
+  transform: scale(1.05);
+}
+.todoText {
+  width: 100%;
+}
+.todoTextP {
+  float: center;
+}
+.todoTextDisplayNone {
+  display: none;
+}
+
+.buttons {
+  float: right;
+}
+
+.editIcon {
+  font-size: 1.8rem;
+  margin-right: 10px;
+  color: teal;
+  float: left;
+}
+.dataBtn {
+  float: left;
+}
+.unActiveTodo {
+  color: grey;
+  font-size: 1.8rem;
+
+}
+
+.deleteIcon, .activeTodo, .editIcon, .dataBtn{
+  transition: transform 0.3s;
+  color: teal;
+  font-size: 1.8rem;
+}
+
+.deleteIcon:hover {
+  color: red;
+  transform: scale(1.1);
+}
+.activeTodo:hover, .editIcon:hover, .dataBtn:hover{
+  transform: scale(1.1);
+}
+
+.inputEditFormUnactive {
+  display: none;
+}
+.inputEdit {
+  font-size: 1.5rem;
+  display: block;
+  margin-top: 26px;
+  margin-left: 119px;
+  text-align: center;
+  width:70%
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: 3px;
+  border-width: 5px;
+  border-style: solid;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1.6;
+  font-size: 50%;
+}
+.dataText {
+  width: 100px;
+  background-color: #112d49;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 0 0;
+  padding-right: 10px;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transition: opacity 0.3s;
+  visibility: visible;
+  opacity: 1.6;
+  font-size: 50%;
+  content: "";
+  top: 100%;
+  margin-left: -53px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+
+}
+.hiddenDataText {
+  display: none;
+}
+
+.cross {
+  margin-top: 4px;
+  margin-left: 94px;
+}
+.cross:hover {
+  color:red;
+}

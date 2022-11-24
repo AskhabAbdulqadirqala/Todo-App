@@ -1,0 +1,52 @@
+.buttons {
+  font-size: 30px;
+  display: inline-flex;
+  min-height: 47px;
+}
+.button {
+  border: solid white 2px;
+}
+.button, .unactiveButton{
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+.unactiveButton {
+  border: solid grey 2px;
+  color: grey;
+}
+
+.button:hover, .unactiveButton:hover {
+  transform: scale(1.1);
+}
+.hiddenBtn {
+  display: none;
+}
+.search {
+  background-color: #112d49;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 0 0;
+  padding-right: 10px;
+  position: absolute;
+  z-index: 1;
+  left: 210%;
+  transition: opacity 0.3s;
+  visibility: visible;
+  opacity: 1.6;
+  font-size: 50%;
+  content: "";
+  margin-left: -53px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+
+}
+.cross {
+  float: right;
+  margin-top: 5px;
+}
+.cross:hover {
+  color:red;
+}

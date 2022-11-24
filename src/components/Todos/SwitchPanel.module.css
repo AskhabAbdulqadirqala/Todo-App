@@ -1,0 +1,23 @@
+.panel {
+	white-space: nowrap;
+}
+
+.button, .activeButton {
+display: inline-block;
+margin-left: 10px;
+margin-right: 10px;
+margin-bottom: 10px;
+transition: transform 0.3s;
+border: solid 1px;
+border-radius: 10px;
+width: 150px;
+cursor: default;
+}
+.button:hover {
+  transform: scale(1.01);
+
+}
+.activeButton{
+	background: white;
+	color: #112d49;
+}
