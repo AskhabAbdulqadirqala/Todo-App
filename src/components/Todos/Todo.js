@@ -7,37 +7,31 @@ import { useState } from 'react'
 
 import styles from './Todo.module.css'
 import promptStyles from '../universalStyles/promptText.module.css'
+import {useDispatch} from "react-redux";
+import {
+  changeActivityRed,
+  changeEditingStatusRed,
+  onSubmitEditInputRed,
+  changeDataButtonActivityRed,
+  deleteTodoRed
+} from "../../redux/actions";
 
 
-function Todo({ todo, todos, setTodos, deleteTodo, lang}) {
+function Todo({ todo, lang}) {
 
   const {text, id, isEditing, createdDate, lastEditDate, isDataButtonActive, activity} = todo;
-
+  const dispatch = useDispatch();
   const [editText, setEditText] = useState(text)
 
-  function changeTodosParameter(parameter){
-    setTodos(todos.map(
-        (item) => {
-          let {...rest} = item;
-          let values = {activity: !item.activity, isEditing: !item.isEditing, isDataButtonActive: !item.isDataButtonActive, onSubmitEditInput: {text: editText, isEditing: false, lastEditDate: new Date().toJSON()}};
-          let newValue = values[parameter];
-          if (parameter==='onSubmitEditInput'){
-            return item.id===id ? {...rest, ...newValue} : item
-          }
-          return item.id===id ? {...rest, [parameter]: newValue} : item
-        }
-      )
-    )
-  }
   return (
     <div className={activity ? styles.todoActive : styles.todoNotActive}>
       <span className={promptStyles.tooltip}>
         <HiPencil 
           className={styles.editIcon} 
-          onClick={() => changeTodosParameter('isEditing')}
+          onClick={() =>dispatch(changeEditingStatusRed(id))}
         />
 
-        <form onSubmit={(e) => {e.preventDefault(); changeTodosParameter('onSubmitEditInput'); if(editText==='') deleteTodo(id)}} 
+        <form onSubmit={(e) => {e.preventDefault(); dispatch(onSubmitEditInputRed(id, editText)); if(editText==='') dispatch(deleteTodoRed(id))}}
               className={isEditing ? styles.inputEditForm : styles.inputEditFormUnactive}>
           <input type='text'
                  className={styles.inputEdit}
@@ -56,13 +50,13 @@ function Todo({ todo, todos, setTodos, deleteTodo, lang}) {
         <p className={styles.buttons}>
           <span 
             className={promptStyles.tooltip} 
-            onClick={()=>deleteTodo(id)}>
+            onClick={()=>dispatch(deleteTodoRed(id))}>
               <RiCloseCircleLine className={styles.deleteIcon}/>
               <span className={promptStyles.tooltiptext}>{{en:'Remove',ru:'Удалить'}[lang]}</span>
           </span>
 
           <span 
-            onClick={() => changeTodosParameter('activity')}
+            onClick={() => dispatch(changeActivityRed(id))}
             className={promptStyles.tooltip}
             >
             {activity ? <RiCheckboxBlankCircleLine className={styles.activeTodo}/> 
@@ -76,11 +70,11 @@ function Todo({ todo, todos, setTodos, deleteTodo, lang}) {
             >
               <HiOutlineDotsCircleHorizontal 
                 className={styles.dataBtn}
-                onClick={() => {changeTodosParameter('isDataButtonActive')}}/>
+                onClick={() => dispatch(changeDataButtonActivityRed(id))}/>
               <span className={promptStyles.tooltiptext}>{{en:'Data',ru:'Данные'}[lang]}</span>
               <span className={isDataButtonActive ? styles.dataText : styles.hiddenDataText}>
                 <ImCross className={styles.cross} 
-                         onClick={()=>changeTodosParameter('isDataButtonActive')}/><br/>
+                         onClick={()=> dispatch(changeDataButtonActivityRed(id))}/><br/>
                               {{en:'Date of creation',ru:'Дата создания'}[lang]}: {new Date(createdDate).toLocaleString()}
                               {!!lastEditDate && <hr/>}
                               {!!lastEditDate && {en:'Date of last edit: ',ru:'Дата последнего изменения: '}[lang]}

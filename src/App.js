@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useState } from 'react'
+
 import TodoApp from './components/TodoApp.js'
 import Registration from './components/Registration.js'
 import SignIn from './components/SignIn.js'
+
 import './App.css'
 
 function App() {

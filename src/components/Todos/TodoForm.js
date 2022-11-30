@@ -1,13 +1,24 @@
 import { useState } from 'react'
 import styles from './TodoForm.module.css';
- 
-function TodoForm({ addTodo, lang }) {
+import {v4 as uuidv4} from "uuid";
+import {addTodoRed} from "../../redux/actions";
+import {useDispatch} from "react-redux";
+
+function TodoForm({ lang }) {
   const [text, setText] = useState('')
+  const dispatch = useDispatch();
+
+  function addTodo(text) {
+    let id = uuidv4();
+    text && dispatch(addTodoRed(text, id));
+  }
+
   function onSubmitHandler(event) {
     event.preventDefault();
     addTodo(text);
     setText('');
   }
+
   return (
     <div className={styles.todoFormContainer}>
       <form onSubmit={onSubmitHandler}>

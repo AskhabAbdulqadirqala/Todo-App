@@ -5,7 +5,7 @@ import { ImCross } from "react-icons/im";
 
 export default function SearchButton({ lang, setSearchButtonActive, isSeachButtonActive, setSearchRequest, searchRequest }) {
 	return (
-			    <p>
+        <p>
             <span className={promptStyles.tooltip}>
               <AiOutlineSearch className={styles.button} onClick={()=>{setSearchButtonActive(!isSeachButtonActive); setSearchRequest('')}}/>
               <span className={promptStyles.tooltiptext}>{{en: 'Search', ru: 'Поиск'}[lang]}</span>
@@ -16,6 +16,6 @@ export default function SearchButton({ lang, setSearchButtonActive, isSeachButto
                          <input type="text" value={searchRequest} onChange={(e) => setSearchRequest(e.target.value)}></input>
               </span>
             </span>
-          </p>
+        </p>
 	)
 }

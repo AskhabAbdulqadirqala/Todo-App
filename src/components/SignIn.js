@@ -6,8 +6,7 @@ function SignIn({ setAuth, lang }) {
 
   function onSubmitHandler(event) {
     event.preventDefault();
-    // вход в аккаунт
-    setData({name: '', email: '', password: ''});
+	setData({name: '', email: '', password: ''});
     setAuth(true);
   }
 
