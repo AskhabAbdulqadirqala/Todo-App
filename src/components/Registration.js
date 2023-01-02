@@ -1,15 +1,42 @@
 import { useState } from 'react'
 import styles from './universalStyles/auth.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import { addLogin } from "../redux/actions";
 
 
 function Registration({ setAuth, lang }) {
   const [data, setData] = useState({login: '', email: '', password: ''});
-
+  const [authError, setAuthError] = useState(false);
+  const dispatch = useDispatch();
+  const todos = useSelector(state => {
+		const { TodoAppReducer } = state;
+		return TodoAppReducer.todos;
+  });
   function onSubmitHandler(event) {
     event.preventDefault();
-    // добавление в базу
-    setData({name: '', email: '', password: ''});
-    setAuth(true);
+
+	fetch('http://localhost:5000/auth/registration', {
+		  method: 'POST',
+		  headers: new Headers({
+			  Accept: 'application/json',
+			  'Content-Type': 'application/json'
+		  }),
+		  body: JSON.stringify({username: data.login,
+			  									email: data.email,
+			  									password: data.password,
+		  										todos})
+	})
+		  .then(response => response.text())
+		  .then(response => {
+			  let res = JSON.parse(response);
+			  if (res.message === 'User successfully authorised') {
+				  dispatch(addLogin(data.login))
+				  setAuthError(false);
+				  setData({name: '', email: '', password: ''});
+				  setAuth(true);
+			  }
+			  else setAuthError(res.errors.errors[0].msg[lang]);
+		  })
   }
 
 	return (
@@ -46,6 +73,7 @@ function Registration({ setAuth, lang }) {
 		 	        />
 		 	        <button type="submit" className={styles.submit}>{{en:'Submit',ru:'Отправить'}[lang]}</button>
 	     </form>
+			<p>{!!authError && authError}</p>
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import queryString from 'query-string'
 
 import SwitchPanel from './Todos/SwitchPanel.js'
@@ -9,17 +9,25 @@ import TodoList from './Todos/TodoList.js'
 import Buttons from './UI/Buttons.js'
 
 import styles from './TodoApp.module.css'
+import {deleteLogin, removeState} from "../redux/actions";
 
 function TodoApp ({lang, setLang, userIsAuth, setAuth}) {
   const [activeList, setActiveList] = useState(1);
   const [searchRequest, setSearchRequest] = useState('');
+  const dispatch = useDispatch();
   const location = useLocation();
   const query = queryString.parse(location.search)
 
   const todos = useSelector(state => {
-        const { TodoAppReducer } = state;
-        return TodoAppReducer.todos;
+        const { todoAppReducer } = state;
+        return todoAppReducer.todos;
   });
+
+  function signout() {
+      dispatch(removeState())
+      dispatch(deleteLogin())
+      setAuth(false)
+  }
 
   let countUnactive = todos.reduce(function(counter, item) {
       return item.activity ? counter : ++counter
@@ -47,7 +55,7 @@ function TodoApp ({lang, setLang, userIsAuth, setAuth}) {
                         {{en: 'Sign in', ru: ' Войти'}[lang]}</Link>
                 </span>
             </> :
-                <span className={styles.auth} onClick={()=>setAuth(false)}>
+                <span className={styles.auth} onClick={signout}>
                     {{en: 'Sign out', ru: 'Выйти'}[lang]}
                  </span>
             }

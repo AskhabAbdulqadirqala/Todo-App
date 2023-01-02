@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import styles from './Todo.module.css'
 import promptStyles from '../universalStyles/promptText.module.css'
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   changeActivityRed,
   changeEditingStatusRed,
@@ -17,9 +17,9 @@ import {
 } from "../../redux/actions";
 
 
-function Todo({ todo, lang}) {
+function Todo({ todo, lang }) {
 
-  const {text, id, isEditing, createdDate, lastEditDate, isDataButtonActive, activity} = todo;
+  const { text, id, isEditing, createdDate, lastEditDate, isDataButtonActive, activity } = todo;
   const dispatch = useDispatch();
   const [editText, setEditText] = useState(text)
 

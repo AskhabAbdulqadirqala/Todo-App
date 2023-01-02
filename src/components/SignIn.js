@@ -1,13 +1,35 @@
 import { useState } from 'react'
+import { useDispatch } from "react-redux";
+import { fillTodoList, addLogin } from "../redux/actions";
+
 import styles from './universalStyles/auth.module.css'
 
 function SignIn({ setAuth, lang }) {
-  const [data, setData] = useState({login: '', email: '', password: ''});
-
+  const [data, setData] = useState({login: '', password: ''});
+  const [authError, setAuthError] = useState(false);
+  const dispatch = useDispatch();
   function onSubmitHandler(event) {
     event.preventDefault();
-	setData({name: '', email: '', password: ''});
-    setAuth(true);
+	fetch('http://localhost:5000/auth/login', {
+		  method: 'POST',
+		  headers: new Headers({
+			  Accept: 'application/json',
+			  'Content-Type': 'application/json'
+		  }),
+		  body: JSON.stringify({username: data.login, password: data.password})
+	})
+		  .then(response => response.text())
+		  .then(response => {
+			  let res = JSON.parse(response);
+			  if (!res.message) {
+				  dispatch(fillTodoList(res.todos))
+				  dispatch(addLogin(data.login))
+				  setAuthError(false);
+				  setData({name: '', password: ''});
+				  setAuth(true);
+			  }
+			  setAuthError({en:'Wrong login or password', ru: 'Неправильный пароль или логин'}[lang]);
+		  })
   }
 
 	return (
@@ -35,6 +57,7 @@ function SignIn({ setAuth, lang }) {
 		 	        />
 		 	        <button type="submit" className={styles.submit}>{{en:'Submit',ru:'Отправить'}[lang]}</button>
 	     </form>
+		<p>{!!authError && authError}</p>
 		</div>
 	)
 }

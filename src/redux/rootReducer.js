@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
-import { TodoAppReducer } from "./TodoAppReducer";
+import { todoAppReducer } from "./todoAppReducer";
+import { authReducer} from "./authReducer";
+
 export const rootReducer = combineReducers({
-    TodoAppReducer,
+    todoAppReducer,
+    authReducer
 });
