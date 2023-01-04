@@ -9,9 +9,9 @@ let newTodos;
 
 export const todoAppReducer = (state = initialState, action) => {
 
-    const login = action.login;
+    let login = action.login;
 
-    const serverUpdate = (newTD) => {
+    function serverUpdate(newTD){
         login && fetch('http://localhost:5000/data/update', {
             method: 'PATCH',
             headers: new Headers({
@@ -19,7 +19,7 @@ export const todoAppReducer = (state = initialState, action) => {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({username: login, todos: newTD})
-        }).then(response => response.text())
+        })
     }
 
     switch (action.type) {

@@ -18,6 +18,7 @@ function TodoApp ({lang, setLang, userIsAuth, setAuth}) {
   const location = useLocation();
   const query = queryString.parse(location.search)
 
+
   const todos = useSelector(state => {
         const { todoAppReducer } = state;
         return todoAppReducer.todos;
@@ -26,6 +27,7 @@ function TodoApp ({lang, setLang, userIsAuth, setAuth}) {
   function signout() {
       dispatch(removeState())
       dispatch(deleteLogin())
+      document.cookie = 'LOGIN=; path=/; expires=-1';
       setAuth(false)
   }
 

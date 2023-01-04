@@ -9,8 +9,8 @@ function Registration({ setAuth, lang }) {
   const [authError, setAuthError] = useState(false);
   const dispatch = useDispatch();
   const todos = useSelector(state => {
-		const { TodoAppReducer } = state;
-		return TodoAppReducer.todos;
+		const { todoAppReducer } = state;
+		return todoAppReducer.todos;
   });
   function onSubmitHandler(event) {
     event.preventDefault();
@@ -31,11 +31,12 @@ function Registration({ setAuth, lang }) {
 			  let res = JSON.parse(response);
 			  if (res.message === 'User successfully authorised') {
 				  dispatch(addLogin(data.login))
+				  document.cookie = 'LOGIN=' + data.login + '; path=/;';
 				  setAuthError(false);
 				  setData({name: '', email: '', password: ''});
 				  setAuth(true);
 			  }
-			  else setAuthError(res.errors.errors[0].msg[lang]);
+			  else setAuthError(res.message);
 		  })
   }
 

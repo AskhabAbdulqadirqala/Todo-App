@@ -17,13 +17,13 @@ function SignIn({ setAuth, lang }) {
 			  'Content-Type': 'application/json'
 		  }),
 		  body: JSON.stringify({username: data.login, password: data.password})
-	})
-		  .then(response => response.text())
+	}).then(response => response.text())
 		  .then(response => {
 			  let res = JSON.parse(response);
 			  if (!res.message) {
 				  dispatch(fillTodoList(res.todos))
 				  dispatch(addLogin(data.login))
+				  document.cookie = 'LOGIN=' + data.login + '; path=/;';
 				  setAuthError(false);
 				  setData({name: '', password: ''});
 				  setAuth(true);
